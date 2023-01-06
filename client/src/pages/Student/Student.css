@@ -1,0 +1,31 @@
+main.student {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block-start: 7rem;
+}
+
+.student-search {
+  width: 50vw;
+  padding: .5rem;
+  background-color: var(--background-cl-1);
+  border-radius: 5px;
+}
+
+ul.subject-list {
+  margin-top: 6rem;
+  width: 100%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-items: center;
+  column-gap: 3rem;
+  width: 80vw;
+  grid-auto-rows: 10rem;
+  padding: 0;
+  row-gap: 1.5rem;
+}
+
+li.subject-list__item {
+  width: 100%;
+}
