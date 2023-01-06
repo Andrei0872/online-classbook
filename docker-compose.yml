@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:13.6
+    environment:
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_USER: andrei
+      POSTGRES_DB: online_classbook
+    restart: on-failure
+    healthcheck:
+      test: "psql -U andrei -d online_classbook -c 'select 1;'"
+      interval: 1s
+      retries: 20
+    volumes:
+      - database_online_classbook_dev:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d/
+    networks:
+      - online_classbook_dev
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: foo@bar.com
+      PGADMIN_DEFAULT_PASSWORD: pass123
+    ports:
+      - "1337:80"
+
+    volumes:
+      - database_online_classbook_pgadmin:/var/lib/pgadmin
+    networks:
+      - online_classbook_dev
+
+volumes:
+  database_online_classbook_dev:
+  database_online_classbook_pgadmin:
+
+networks:
+  online_classbook_dev:
