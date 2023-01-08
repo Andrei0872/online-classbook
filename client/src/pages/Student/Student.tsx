@@ -2,28 +2,43 @@ import './Student.css'
 import Header from '../../components/Navbar/Header'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import SubjectCard from '../../components/Subject/SubjectCard'
+import { useAppSelector, useAppDispatch } from '../../utils/hooks/store';
+import { setClasses } from '../../store/slices/class.slice';
+import { useEffect } from 'react';
+import { fetchClasses } from '../../api/student';
+
 
 function Student() {
+  const classesList = useAppSelector(state => state.classes.list);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (classesList) {
+      return;
+    }
+    
+    fetchClasses()
+      .then(classes => dispatch(setClasses(classes)));
+  }, []);
+
   return (
     <>
       <Header />
       <main className='student'>
-        <SearchBar className='student-search'/>
-
-        <ul className="subject-list">
-          <li className="subject-list__item">
-            <SubjectCard subjectName='Subject1' studentsCount={10} />
-          </li>
-          <li className="subject-list__item">
-            <SubjectCard subjectName='Subject2' studentsCount={20} />
-          </li>
-          <li className="subject-list__item">
-            <SubjectCard subjectName='Subject3' studentsCount={30} />
-          </li>
-          <li className="subject-list__item">
-            <SubjectCard subjectName='Subject4' studentsCount={40} />
-          </li>
-        </ul>
+        <SearchBar className='student-search' />
+        {
+          !classesList ? null : (
+            <ul className="subject-list">
+              {
+                classesList.map(c => (
+                  <li key={c.id} className="subject-list__item">
+                    <SubjectCard subjectName={c.subjectName} studentsCount={c.studentsCount} />
+                  </li>
+                ))
+              }
+            </ul>
+          )
+        }
       </main>
     </>
   )
