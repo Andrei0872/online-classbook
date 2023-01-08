@@ -7,11 +7,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Student from './pages/Student/Student';
 import { Provider } from 'react-redux';
 import { store } from './store/index'
+import StudentClass from './pages/StudentClass/StudentClass';
 
+// TODO: lazy load.
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Student />,
+  },
+  {
+    path: 'student/class/:id',
+    element: <StudentClass />,
   },
 ]);
 
