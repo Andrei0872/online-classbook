@@ -1,3 +1,5 @@
+import { ClassGrade } from "./student";
+
 export interface TeacherClass {
   id: number;
   subjectName: string;
@@ -31,4 +33,14 @@ export const fetchClassStudents = (classId: number): Promise<TeacherClassStudent
   ];
 
   return Promise.resolve(students);
+}
+
+export const fetchStudentGrades = (classId: number, studentId: number): Promise<ClassGrade[]> => {
+  const grades: ClassGrade[] = [
+    { id: 1, value: 8, assignedAt: '08/01/2023' },
+    { id: 2, value: 9, assignedAt: '04/01/2023' },
+    { id: 3, value: 10, assignedAt: '09/01/2023' },
+  ];
+
+  return Promise.resolve(grades);
 }

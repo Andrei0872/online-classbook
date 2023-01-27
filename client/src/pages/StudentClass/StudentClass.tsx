@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
-import { fetchClassGrades } from '../../api/student';
+import { fetchStudentGrades } from '../../api/student';
 import GradeCard from '../../components/GradeCard/GradeCard';
 import Header from '../../components/Navbar/Header'
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -25,7 +25,7 @@ function StudentClass () {
       return;
     }
 
-    fetchClassGrades(idAsNumber)
+    fetchStudentGrades(idAsNumber, 0)
       .then(selectedClass => dispatch(setClassGrades({
         id: idAsNumber,
         ...selectedClass,

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, PayloadActionCreator } from '@reduxjs/toolkit'
+import { ClassGrade } from '../../api/student';
 import { TeacherClass, TeacherClassStudent } from '../../api/teacher';
 
 interface SelectedClass extends TeacherClass {
@@ -6,14 +7,20 @@ interface SelectedClass extends TeacherClass {
   students: TeacherClassStudent[];
 }
 
+type InspectedStudent = Omit<TeacherClassStudent, 'gradesCount'> & {
+  grades: ClassGrade[];
+}
+
 interface TeacherState {
   classes: TeacherClass[] | null;
   selectedClass: SelectedClass | null;
+  inspectedStudent: InspectedStudent | null;
 }
 
 const initialState: TeacherState = {
   classes: null,
   selectedClass: null,
+  inspectedStudent: null,
 }
 
 export const teacherSlice = createSlice({
@@ -32,9 +39,19 @@ export const teacherSlice = createSlice({
         students: action.payload.students,
       };
     },
+    setInspectedStudent (state, action: PayloadAction<Omit<InspectedStudent, 'name'>>) {
+      const studentId = action.payload.id;
+      const student = state.selectedClass?.students.find(s => s.id === studentId)!;
+
+      state.inspectedStudent = {
+        id: studentId,
+        name: student.name,
+        grades: action.payload.grades,
+      }
+    },
   },
 });
 
-export const { setClasses, setSelectedClass } = teacherSlice.actions;
+export const { setClasses, setSelectedClass, setInspectedStudent } = teacherSlice.actions;
 
 export const teacherReducer = teacherSlice.reducer;

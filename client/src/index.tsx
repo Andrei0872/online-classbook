@@ -10,6 +10,7 @@ import { store } from './store/index'
 import StudentClass from './pages/StudentClass/StudentClass';
 import Teacher from './pages/Teacher/Teacher';
 import TeacherClass from './pages/TeacherClass/TeacherClass';
+import InspectedStudent from './pages/InspectedStudent/InspectedStudent';
 
 // TODO: lazy load.
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: 'teacher/class/:id',
     element: <TeacherClass />,
+  },
+  {
+    path: 'teacher/class/:id/student/:studentId',
+    element: <InspectedStudent />,
   }
 ]);
 

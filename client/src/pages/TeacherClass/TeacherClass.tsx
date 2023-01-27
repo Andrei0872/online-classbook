@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { fetchClassStudents } from '../../api/teacher';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { fetchClassStudents, TeacherClassStudent } from '../../api/teacher';
 import Header from '../../components/Navbar/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { setSelectedClass } from '../../store/slices/teacher.slice';
@@ -14,6 +14,7 @@ function TeacherClass () {
 
   const teacherClass = useAppSelector(state => state.teacher.selectedClass);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (teacherClass?.students) {
@@ -26,6 +27,10 @@ function TeacherClass () {
         students: classStudents,
       })));
   }, []);
+
+  const onStudentClick = (student: TeacherClassStudent) => {
+    navigate(`student/${student.id}`);
+  }
 
   return (
     <>
@@ -45,7 +50,7 @@ function TeacherClass () {
             <ul className='teacher-class__students'>
               {
                 teacherClass.students.map(s => (
-                  <li className='teacher-class__student'>
+                  <li key={s.id} onClick={() => onStudentClick(s)} className='teacher-class__student'>
                     <div>{s.name}</div>
                     <div>{s.gradesCount}</div>
                     <div>+</div>

@@ -27,7 +27,7 @@ export const fetchClasses = (): Promise<SchoolClass[]> => {
   return Promise.resolve(classes);
 };
 
-export const fetchClassGrades = (classId: number): Promise<SelectedClass> => {
+export const fetchStudentGrades = (classId: number, studentId: number): Promise<SelectedClass> => {
   const grades: ClassGrade[] = [
     { id: 1, value: 8, assignedAt: '08/01/2023' },
     { id: 2, value: 9, assignedAt: '04/01/2023' },
