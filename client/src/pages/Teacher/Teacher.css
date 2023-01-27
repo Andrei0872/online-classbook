@@ -1,0 +1,34 @@
+ul.teacher__subject-list {
+  margin-top: 6rem;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-items: center;
+  column-gap: 3rem;
+  width: 80vw;
+  grid-auto-rows: 10rem;
+  padding: 0;
+  row-gap: 2.2rem;
+  margin-inline: auto;
+}
+
+li.teacher__class {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+span.teacher__subject {
+  position: absolute;
+  background: var(--background-cl-2);
+  padding: .3rem;
+  border-radius: 3px;
+  left: 0.3rem;
+}
+
+.teacher__search {
+  width: 50vw;
+  padding: 0.5rem;
+  background-color: var(--background-cl-1);
+  border-radius: 5px;
+}

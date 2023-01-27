@@ -1,10 +1,3 @@
-main.student {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-block-start: 7rem;
-}
-
 .student-search {
   width: 50vw;
   padding: .5rem;
