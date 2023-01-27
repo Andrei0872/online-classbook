@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchClasses, TeacherClass } from '../../api/teacher';
 import Header from '../../components/Navbar/Header'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -10,6 +11,7 @@ import './Teacher.css'
 function Teacher() {
   const classesList = useAppSelector(state => state.teacher.classes);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (classesList) {
@@ -21,9 +23,7 @@ function Teacher() {
   }, []);
 
   const onClassClicked = (cls: TeacherClass) => {
-    // navigate(`student/class/${cls.id}`);
-    console.log(cls);
-    
+    navigate(`/teacher/class/${cls.id}`);
   }
 
   return (

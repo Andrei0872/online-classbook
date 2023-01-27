@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/index'
 import StudentClass from './pages/StudentClass/StudentClass';
 import Teacher from './pages/Teacher/Teacher';
+import TeacherClass from './pages/TeacherClass/TeacherClass';
 
 // TODO: lazy load.
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: 'teacher',
     element: <Teacher />,
   },
+  {
+    path: 'teacher/class/:id',
+    element: <TeacherClass />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(
