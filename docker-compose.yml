@@ -21,18 +21,18 @@ services:
     ports:
       - "5432:5432"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: foo@bar.com
-      PGADMIN_DEFAULT_PASSWORD: pass123
-    ports:
-      - "1337:80"
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: foo@bar.com
+  #     PGADMIN_DEFAULT_PASSWORD: pass123
+  #   ports:
+  #     - "1337:80"
 
-    volumes:
-      - database_online_classbook_pgadmin:/var/lib/pgadmin
-    networks:
-      - online_classbook_dev
+  #   volumes:
+  #     - database_online_classbook_pgadmin:/var/lib/pgadmin
+  #   networks:
+  #     - online_classbook_dev
 
 volumes:
   database_online_classbook_dev:
