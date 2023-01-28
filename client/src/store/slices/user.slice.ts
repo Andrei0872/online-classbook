@@ -1,6 +1,10 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+const LS_KEY = '@@user';
+// @ts-ignore
+const LSUser = JSON.parse(localStorage.getItem(LS_KEY) || null);
+
 export enum UserRoles {
   TEACHER,
   STUDENT,
@@ -15,11 +19,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  currentUser: {
-    id: 1,
-    name: 'Teacher 1',
-    role: UserRoles.TEACHER,
-  }
+  currentUser: LSUser,
 };
 
 export const userSlice = createSlice({
@@ -28,6 +28,12 @@ export const userSlice = createSlice({
   reducers: {
     setCurrentUser (state, action: PayloadAction<UserState['currentUser'] | null>) {
       state.currentUser = action.payload;
+
+      if (action.payload) {
+        localStorage.setItem(LS_KEY, JSON.stringify(action.payload));
+      } else {
+        localStorage.removeItem(LS_KEY);
+      }
     },
   }
 });
