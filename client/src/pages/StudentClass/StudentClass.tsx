@@ -8,10 +8,6 @@ import { setClassGrades } from '../../store/slices/class.slice';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/store';
 import './StudentClass.css'
 
-interface Params {
-  id: number;
-}
-
 function StudentClass () {
   const params = useParams();
   const { id } = params;
@@ -25,11 +21,15 @@ function StudentClass () {
       return;
     }
 
-    fetchStudentGrades(idAsNumber, 0)
-      .then(selectedClass => dispatch(setClassGrades({
+    fetchStudentGrades(idAsNumber, 1)
+      .then(grades => dispatch(setClassGrades({
         id: idAsNumber,
-        ...selectedClass,
+        grades,
       })));
+
+    return () => {
+      dispatch(setClassGrades(null));
+    }
   }, []);
 
   return (
@@ -52,8 +52,8 @@ function StudentClass () {
                 !selectedClass.grades.length ? <p>No grades yet.</p> : (
                   <ul className='class-grades__list'>
                     {
-                      selectedClass.grades.map(gr => (
-                        <li key={gr.id}>
+                      selectedClass.grades.map((gr, idx) => (
+                        <li key={idx}>
                           <GradeCard value={gr.value} assignedAt={gr.assignedAt} />
                         </li>
                       ))

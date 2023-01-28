@@ -4,6 +4,7 @@ export interface SchoolClass {
   id: number;
   subjectName: string;
   studentsCount: number;
+  teacherName: string;
 }
 
 export interface ClassGrade {
@@ -35,17 +36,23 @@ export const fetchClasses = (studentId: number): Promise<SchoolClass[]> => {
   // return Promise.resolve(classes);
 };
 
-export const fetchStudentGrades = (classId: number, studentId: number): Promise<SelectedClass> => {
-  const grades: ClassGrade[] = [
-    { id: 1, value: 8, assignedAt: '08/01/2023' },
-    { id: 2, value: 9, assignedAt: '04/01/2023' },
-    { id: 3, value: 10, assignedAt: '09/01/2023' },
-  ];
+export const fetchStudentGrades = (classId: number, studentId: number): Promise<ClassGrade[]> => {
+  const URL = `${API_URL}/student/class/${classId}/grades?id=${studentId}`;
 
-  const result: SelectedClass = {
-    teacherName: 'Teacher 1',
-    grades,
-  };
+  return fetch(URL)
+    .then(res => res.json())
+    .then(res => res.data);
+  
+  // const grades: ClassGrade[] = [
+  //   { id: 1, value: 8, assignedAt: '08/01/2023' },
+  //   { id: 2, value: 9, assignedAt: '04/01/2023' },
+  //   { id: 3, value: 10, assignedAt: '09/01/2023' },
+  // ];
 
-  return Promise.resolve(result);
+  // const result: SelectedClass = {
+  //   teacherName: 'Teacher 1',
+  //   grades,
+  // };
+
+  // return Promise.resolve(result);
 }

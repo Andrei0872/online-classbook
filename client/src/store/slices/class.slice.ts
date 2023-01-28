@@ -3,7 +3,7 @@ import { ClassGrade, SchoolClass } from '../../api/student'
 
 interface SelectedClassState {
   id: number;
-  teacherName: string;
+  // teacherName: string;
   grades: ClassGrade[];
 }
 
@@ -24,7 +24,7 @@ export const classSlice = createSlice({
     setClasses (state, action: PayloadAction<SchoolClass[]>) {
       state.list = action.payload;
     },
-    setClassGrades (state, action: PayloadAction<SelectedClassState>) {
+    setClassGrades (state, action: PayloadAction<SelectedClassState | null>) {
       state.selectedClass = action.payload;
     },
   }

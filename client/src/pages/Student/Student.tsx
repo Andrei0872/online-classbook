@@ -37,7 +37,7 @@ function Student() {
               {
                 classesList.map(c => (
                   <li onClick={ev => onClassClicked(c)} key={c.id} className="subject-list__item">
-                    <SubjectCard subjectName={c.subjectName} studentsCount={c.studentsCount} />
+                    <SubjectCard subjectName={`${c.subjectName} - ${c.teacherName}`} studentsCount={c.studentsCount} />
                   </li>
                 ))
               }
