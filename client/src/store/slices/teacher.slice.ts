@@ -17,6 +17,11 @@ interface TeacherState {
   inspectedStudent: InspectedStudent | null;
 }
 
+interface UpdateStudentGradesCount {
+  studentId: number;
+  newGradeCount: number;
+};
+
 const initialState: TeacherState = {
   classes: null,
   selectedClass: null,
@@ -30,7 +35,12 @@ export const teacherSlice = createSlice({
     setClasses(state, action: PayloadAction<TeacherClass[]>) {
       state.classes = action.payload;
     },
-    setSelectedClass(state, action: PayloadAction<Pick<SelectedClass, 'id' | 'students'>>) {
+    setSelectedClass(state, action: PayloadAction<null | Pick<SelectedClass, 'id' | 'students'>>) {
+      if (!action.payload) {
+        state.selectedClass = null;
+        return
+      }
+
       const selectedClassId = action.payload.id;
       const selectedClass = state.classes?.find(c => +c.id === selectedClassId)!;
 
@@ -39,7 +49,7 @@ export const teacherSlice = createSlice({
         students: action.payload.students,
       };
     },
-    setInspectedStudent(state, action: PayloadAction<null | Omit<InspectedStudent, 'name'>>) {
+    setInspectedStudent(state, action: PayloadAction<null | Omit<InspectedStudent, 'name' | 'studentClassId'>>) {
       if (!action.payload) {
         state.inspectedStudent = null;
         return;
@@ -52,11 +62,28 @@ export const teacherSlice = createSlice({
         id: studentId,
         name: student.name,
         grades: action.payload.grades,
+        studentClassId: student.studentClassId,
       }
+    },
+    updateStudentGradesCount (state, action: PayloadAction<UpdateStudentGradesCount>) {
+      const { newGradeCount, studentId } = action.payload;
+
+      if (!state.selectedClass) {
+        return;
+      }
+
+      state.selectedClass.students = state.selectedClass.students.map(s => {
+        return s.id === studentId
+          ? {
+            ...s,
+            gradesCount: newGradeCount,
+          }
+          : s
+      });
     },
   },
 });
 
-export const { setClasses, setSelectedClass, setInspectedStudent } = teacherSlice.actions;
+export const { setClasses, setSelectedClass, setInspectedStudent, updateStudentGradesCount } = teacherSlice.actions;
 
 export const teacherReducer = teacherSlice.reducer;
