@@ -11,6 +11,7 @@ import StudentClass from './pages/StudentClass/StudentClass';
 import Teacher from './pages/Teacher/Teacher';
 import TeacherClass from './pages/TeacherClass/TeacherClass';
 import InspectedStudent from './pages/InspectedStudent/InspectedStudent';
+import Login from './pages/Login/Login';
 
 // TODO: lazy load.
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: 'teacher/class/:id/student/:studentId',
     element: <InspectedStudent />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   }
 ]);
 

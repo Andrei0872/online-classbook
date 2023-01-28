@@ -70,7 +70,7 @@ function TeacherClass() {
     if (!student) {
       return;
     }
-    debugger;
+
     addGradeToStudent({
       gradeValue: +gradeValue,
       studentClassId: student.studentClassId,
