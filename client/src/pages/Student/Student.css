@@ -19,6 +19,10 @@ ul.subject-list {
   row-gap: 1.5rem;
 }
 
+ul.subject-list:not(:has(li:nth-child(2))) {
+  width: 30vw;
+}
+
 li.subject-list__item {
   width: 100%;
   cursor: pointer;
