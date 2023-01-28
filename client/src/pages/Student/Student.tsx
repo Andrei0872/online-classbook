@@ -18,7 +18,7 @@ function Student() {
       return;
     }
     
-    fetchClasses()
+    fetchClasses(1)
       .then(classes => dispatch(setClasses(classes)));
   }, []);
 

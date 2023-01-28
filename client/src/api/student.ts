@@ -1,3 +1,5 @@
+import { API_URL } from "../config";
+
 export interface SchoolClass {
   id: number;
   subjectName: string;
@@ -15,16 +17,22 @@ export interface SelectedClass {
   grades: ClassGrade[];
 }
 
-export const fetchClasses = (): Promise<SchoolClass[]> => {
-  const classes = [
-    { id: 1, subjectName: 'Subject1', studentsCount: 10 },
-    { id: 2, subjectName: 'Subject2', studentsCount: 20 },
-    { id: 3, subjectName: 'Subject3', studentsCount: 30 },
-    { id: 4, subjectName: 'Subject4', studentsCount: 40 },
-    { id: 5, subjectName: 'Subject5', studentsCount: 50 },
-  ];
+export const fetchClasses = (studentId: number): Promise<SchoolClass[]> => {
+  const URL = `${API_URL}/student/classes?id=${studentId}`;
 
-  return Promise.resolve(classes);
+  return fetch(URL)
+    .then(res => res.json())
+    .then(res => res.data);
+
+  // const classes = [
+  //   { id: 1, subjectName: 'Subject1', studentsCount: 10 },
+  //   { id: 2, subjectName: 'Subject2', studentsCount: 20 },
+  //   { id: 3, subjectName: 'Subject3', studentsCount: 30 },
+  //   { id: 4, subjectName: 'Subject4', studentsCount: 40 },
+  //   { id: 5, subjectName: 'Subject5', studentsCount: 50 },
+  // ];
+
+  // return Promise.resolve(classes);
 };
 
 export const fetchStudentGrades = (classId: number, studentId: number): Promise<SelectedClass> => {
