@@ -39,3 +39,39 @@ teacherRouter.get('/classes', async (req, res) => {
       data: rows,
     });
 });
+
+teacherRouter.get('/class/:classId/students', async (req, res) => {
+  const classId = req.params.classId;
+
+  const sqlStr = `
+    select
+      s.id,
+      s.name,
+      studentGrades.count "gradesCount"
+    from assoc_teacher_class tc
+    join assoc_student_class sc
+      on sc.teacher_class_id = tc.id
+    join student s
+      on s.id = sc.student_id
+    join (
+      select
+        sc.student_id,
+        count(*) "count"
+      from student_grade sg
+      join assoc_student_class sc
+        on sc.id = sg.student_class_id
+      where sc.teacher_class_id = $1
+      group by sc.student_id
+    ) studentGrades
+      on studentGrades.student_id = sc.student_id
+    where tc.id = $1;
+  `;
+  const values = [classId];
+
+  const { rows } = await pool.query(sqlStr, values);
+  return res
+    .status(200)
+    .json({
+      data: rows,
+    });
+});
