@@ -7,7 +7,7 @@ studentRouter.get('/classes', async (req, res) => {
 
   const sqlStr = `
     select
-      c.id,
+      tc.id,
       c.subject,
       classstudents."studentscount"
     from assoc_student_class sc
@@ -37,3 +37,31 @@ studentRouter.get('/classes', async (req, res) => {
       data: rows,
     });
 });
+
+studentRouter.get('/class/:classId/grades', async (req, res) => {
+  const studentId = req.query.id;
+  const uniqueClassId = req.params.classId;
+
+  const sqlStr = `
+    select
+      sg.value,
+      sg.inserted_at "insertedAt"
+    from class c
+    join assoc_teacher_class tc
+      on tc.class_id = c.id
+    join assoc_student_class sc
+      on sc.teacher_class_id = tc.id
+    join student_grade sg
+      on sg.student_class_id = sc.id
+    where tc.id = $1 and sc.student_id = $2;
+  `;
+  const values = [uniqueClassId, studentId];
+
+  const { rows } = await pool.query(sqlStr, values);
+
+  return res
+    .status(200)
+    .json({
+      data: rows,
+    });
+})
