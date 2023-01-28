@@ -18,7 +18,7 @@ function Teacher() {
       return;
     }
 
-    fetchClasses()
+    fetchClasses(1)
       .then(classes => dispatch(setClasses(classes)));
   }, []);
 
@@ -37,8 +37,7 @@ function Teacher() {
               {
                 classesList.map(c => (
                   <li onClick={ev => onClassClicked(c)} key={c.id} className="teacher__class">
-                    <SubjectCard subjectName={c.className} studentsCount={c.studentsCount} />
-                    <span className='teacher__subject'>{c.subjectName}</span>
+                    <SubjectCard subjectName={c.subjectName} studentsCount={c.studentsCount} />
                   </li>
                 ))
               }

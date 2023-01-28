@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { ClassGrade } from "./student";
 
 export interface TeacherClass {
@@ -13,16 +14,22 @@ export interface TeacherClassStudent {
   gradesCount: number;
 };
 
-export const fetchClasses = (): Promise<TeacherClass[]> => {
-  const classes = [
-    { id: 1, className: 'className1', subjectName: 'Subject1', studentsCount: 10 },
-    { id: 2, className: 'className2', subjectName: 'Subject2', studentsCount: 20 },
-    { id: 3, className: 'className1', subjectName: 'Subject1', studentsCount: 30 },
-    { id: 4, className: 'className1', subjectName: 'Subject3', studentsCount: 40 },
-    { id: 5, className: 'className1', subjectName: 'Subject3', studentsCount: 50 },
-  ];
+export const fetchClasses = (teacherId: number): Promise<TeacherClass[]> => {
+  const URL = `${API_URL}/teacher/classes?id=${teacherId}`;
 
-  return Promise.resolve(classes);
+  return fetch(URL)
+    .then(r => r.json())
+    .then(r => r.data);
+  
+  // const classes = [
+  //   { id: 1, className: 'className1', subjectName: 'Subject1', studentsCount: 10 },
+  //   { id: 2, className: 'className2', subjectName: 'Subject2', studentsCount: 20 },
+  //   { id: 3, className: 'className1', subjectName: 'Subject1', studentsCount: 30 },
+  //   { id: 4, className: 'className1', subjectName: 'Subject3', studentsCount: 40 },
+  //   { id: 5, className: 'className1', subjectName: 'Subject3', studentsCount: 50 },
+  // ];
+
+  // return Promise.resolve(classes);
 };
 
 export const fetchClassStudents = (classId: number): Promise<TeacherClassStudent[]> => {
