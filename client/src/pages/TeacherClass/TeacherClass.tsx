@@ -126,7 +126,7 @@ function TeacherClass() {
         open={isAddGradeModalOpen}
         onClose={onAddGradeModalClose}
       >
-        <Box sx={addGradeModalStyle}>
+        <Box className="add-grade-modal" sx={addGradeModalStyle}>
           <h3>Add a grade</h3>
 
           <form onSubmit={ev => onAddGradeSubmit(ev)}>

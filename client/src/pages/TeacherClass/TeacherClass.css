@@ -33,3 +33,12 @@ section.teacher-class__header {
   border-radius: 5px;
   margin-block: 2rem;
 }
+
+.add-grade-modal input {
+  display: block;
+}
+
+
+.add-grade-modal button {
+  margin-block-start: 1.5rem;
+}
