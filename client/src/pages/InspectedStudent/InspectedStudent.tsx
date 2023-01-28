@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchStudentGrades } from '../../api/teacher'
+import { fetchStudentGrades } from '../../api/student'
 import GradeCard from '../../components/GradeCard/GradeCard'
 import Header from '../../components/Navbar/Header'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -27,6 +27,10 @@ function InspectedStudent () {
         id: studentId,
         grades: classGrades,
       })));
+
+    return () => {
+      dispatch(setInspectedStudent(null));
+    }
   }, []);
 
   return (
@@ -47,8 +51,8 @@ function InspectedStudent () {
           inspectedStudent?.grades ? (
             <ul className='inspected-student__grades'>
               {
-                inspectedStudent.grades.map(g => (
-                  <li className='inspected-student__grade'>
+                inspectedStudent.grades.map((g, idx) => (
+                  <li key={idx} className='inspected-student__grade'>
                     <GradeCard value={g.value} assignedAt={g.assignedAt} />
                   </li>
                 ))

@@ -39,7 +39,12 @@ export const teacherSlice = createSlice({
         students: action.payload.students,
       };
     },
-    setInspectedStudent (state, action: PayloadAction<Omit<InspectedStudent, 'name'>>) {
+    setInspectedStudent(state, action: PayloadAction<null | Omit<InspectedStudent, 'name'>>) {
+      if (!action.payload) {
+        state.inspectedStudent = null;
+        return;
+      }
+      
       const studentId = action.payload.id;
       const student = state.selectedClass?.students.find(s => s.id === studentId)!;
 
