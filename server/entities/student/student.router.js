@@ -67,4 +67,22 @@ studentRouter.get('/class/:classId/grades', async (req, res) => {
     .json({
       data: rows,
     });
+});
+
+studentRouter.post('/grade', async (req, res) => {
+  const { body } = req;
+
+  const sqlStr = `
+    insert into student_grade
+    values (DEFAULT, $1, $2, current_timestamp);
+  `;
+  const values = [body.studentClassId, body.gradeValue];
+
+  await pool.query(sqlStr, values);
+
+  return res
+    .status(201)
+    .json({
+      message: 'Grade successfully added',
+    });
 })

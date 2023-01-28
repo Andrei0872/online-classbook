@@ -6,9 +6,10 @@ import { teacherRouter } from './entities/teacher/teacher.router.js';
 
 const PORT = 8000;
 
-const app = express();
+const app = express()
 
 app.use(cors());
+app.use(express.json());
 
 app.use('/student', studentRouter);
 app.use('/teacher', teacherRouter);

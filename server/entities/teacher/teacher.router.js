@@ -47,7 +47,8 @@ teacherRouter.get('/class/:classId/students', async (req, res) => {
     select
       s.id,
       s.name,
-      studentGrades.count "gradesCount"
+      studentGrades.count "gradesCount",
+      sc.id "studentClassId"
     from assoc_teacher_class tc
     join assoc_student_class sc
       on sc.teacher_class_id = tc.id
