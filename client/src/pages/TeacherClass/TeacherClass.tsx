@@ -7,6 +7,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import { setSelectedClass, updateStudentGradesCount } from '../../store/slices/teacher.slice';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/store';
 import './TeacherClass.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const addGradeModalStyle = {
   position: 'absolute' as 'absolute',
@@ -112,8 +113,15 @@ function TeacherClass() {
                 teacherClass.students.map(s => (
                   <li key={s.id} onClick={() => onStudentClick(s)} className='teacher-class__student'>
                     <div>{s.name}</div>
-                    <div>{s.gradesCount}</div>
-                    <div onClick={(event) => openAddGradeModal(event, s)}>+</div>
+                    <div>
+                      {/* @ts-ignore */}
+                      <FontAwesomeIcon icon="fa-solid fa-book" />
+                      {s.gradesCount}
+                    </div>
+                    <div onClick={(event) => openAddGradeModal(event, s)}>
+                      {/* @ts-ignore */}
+                      <FontAwesomeIcon icon="fa-solid fa-plus" />
+                    </div>
                   </li>
                 ))
               }

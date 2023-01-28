@@ -15,6 +15,11 @@ import Login from './pages/Login/Login';
 import RoleGuard from './guards/RoleGuard';
 import { UserRoles } from './store/slices/user.slice';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas, faRightFromBracket, faUser, faBook } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fas, faRightFromBracket, faUser, faBook);
+
 // TODO: lazy load.
 const router = createBrowserRouter([
   {

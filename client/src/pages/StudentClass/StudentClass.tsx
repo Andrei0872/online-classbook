@@ -42,7 +42,7 @@ function StudentClass () {
         </section>
 
         <section className="class-search">
-          <SearchBar />
+          <SearchBar className='class-search__input' />
         </section>
 
         {
